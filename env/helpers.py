@@ -41,6 +41,11 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 
 
+class Space(object):
+    def __init__(self, shape):
+        self.shape = shape
+
+
 def compute_DC(net_dict, w_ext):
     """ Computes DC input if no Poisson input is provided to the microcircuit.
 

@@ -152,11 +152,8 @@ net_states = {
     'mean_delay_inh': 0.75,
     # Relative standard deviation of the delay of excitatory and
     # inhibitory connections (in relative units).
-    'rel_std_delay': 0.5
-    }
+    'rel_std_delay': 0.5,
 
-
-net_immutable = {
     # Neuron model.
     'neuron_model': 'iaf_psc_exp',
     # Parameters of the neurons.
@@ -191,18 +188,6 @@ net_immutable = {
 
     # The default recording device is the spike_detector. If you also
     # want to record the membrane potentials of the neurons, add
-    # 'voltmeter' to the list.
-    'rec_dev': ['spike_detector'],
-    # Names of the simulated populations.
-    'populations': ['L23E', 'L23I', 'L4E', 'L4I', 'L5E', 'L5I', 'L6E', 'L6I'],
-    # Number of neurons in the different populations. The order of the
-    # elements corresponds to the names of the variable 'populations'.
-    'N_full': np.array([20683, 5834, 21915, 5479, 4850, 1065, 14395, 2948]),
-    # Mean rates of the different populations in the non-scaled version
-    # of the microcircuit. Necessary for the scaling of the network.
-    # The order corresponds to the order in 'populations'.
-    'full_mean_rates':
-        np.array([0.971, 2.868, 4.746, 5.396, 8.142, 9.078, 0.991, 7.523]),
     # Connection probabilities. The first index corresponds to the targets
     # and the second to the sources.
     'conn_probs':
@@ -215,10 +200,13 @@ net_immutable = {
              [0.0548, 0.0269, 0.0257, 0.0022, 0.06, 0.3158, 0.0086, 0.],
              [0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197, 0.0396, 0.2252],
              [0.0364, 0.001, 0.0034, 0.0005, 0.0277, 0.008, 0.0658, 0.1443]]
-            ),
+            )
+        }
+net_immutable{
     # Number of external connections to the different populations.
     # The order corresponds to the order in 'populations'.
     'K_ext': np.array([1600, 1500, 2100, 1900, 2000, 1900, 2900, 2100]),
+
     # Factor to scale the indegrees.
     'K_scaling': 0.1,
     # Factor to scale the number of neurons.
@@ -234,7 +222,21 @@ net_immutable = {
     # 'optimized': population-specific mean and std, allowing a reduction of
     # the initial activity burst in the network.
     # Choose either 'original' or 'optimized'.
+    # 'voltmeter' to the list.
+    'rec_dev': ['spike_detector'],
+    # Names of the simulated populations.
+    'populations': ['L23E', 'L23I', 'L4E', 'L4I', 'L5E', 'L5I', 'L6E', 'L6I'],
+    # Number of neurons in the different populations. The order of the
+    # elements corresponds to the names of the variable 'populations'.
+    'N_full': np.array([20683, 5834, 21915, 5479, 4850, 1065, 14395, 2948]),
+    # Mean rates of the different populations in the non-scaled version
+    # of the microcircuit. Necessary for the scaling of the network.
+    # The order corresponds to the order in 'populations'.
+    'full_mean_rates':
+        np.array([0.971, 2.868, 4.746, 5.396, 8.142, 9.078, 0.991, 7.523]),
+
     'V0_type': 'optimized',
+
     }
 
 updated_dict = {
