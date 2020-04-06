@@ -2,11 +2,7 @@ from os import listdir
 import nest
 import numpy as np
 from env.example import run_simulation
-from env.network_params import net_dict, net_states
-
-class Space(object):
-    def __init__(self, shape):
-        self.shape = shape
+from env.network_params import Net_dict
 
 
 class Neuron_env(object): 
