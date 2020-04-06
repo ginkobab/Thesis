@@ -226,7 +226,7 @@ net_immutable = {
     # Rate of the Poissonian spike generator (in Hz).
     'bg_rate': 8.,
     # Turn Poisson input on or off (True or False).
-    'poisson_input': False,
+    'poisson_input': True,
     # Delay of the Poisson generator (in ms).
     'poisson_delay': 1.5,
     # Initial conditions for the membrane potential, options are:
