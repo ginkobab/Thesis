@@ -133,10 +133,10 @@ class DDPGAgent:
 
             checkpoint = torch.load(checkpoint_path, map_location=key)
             # start_timestep = checkpoint['last_timestep'] + 1
-            self.actor.load_state_dict(checkpoint['actor']).to(self.device)
-            self.critic.load_state_dict(checkpoint['critic']).to(self.device)
-            self.actor_target.load_state_dict(checkpoint['actor_target']).to(self.device)
-            self.critic_target.load_state_dict(checkpoint['critic_target']).to(self.device)
+            self.actor.load_state_dict(checkpoint['actor'])
+            self.critic.load_state_dict(checkpoint['critic'])
+            self.actor_target.load_state_dict(checkpoint['actor_target'])
+            self.critic_target.load_state_dict(checkpoint['critic_target'])
             self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer'])
             self.critic_optimizer.load_state_dict(checkpoint['critic_optimizer'])
             self.replay_buffer = checkpoint['replay_buffer']

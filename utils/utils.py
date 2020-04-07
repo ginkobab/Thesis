@@ -26,9 +26,9 @@ class Recorder:
         self.df = self.df.fillna(0.0)
         self.df.reward = self.df.loc[:, 'reward'].apply(lambda x: x[0])
 
-        ax_index, rows, cols = get_ax_index(len(self.arguments) - 1)
+        ax_index, rows, cols = get_ax_index(len(self.arguments[1:8]))
         fig, ax = plt.subplots(rows, cols) 
-        for n, arg in enumerate(self.arguments[0:]):
+        for n, arg in enumerate(self.arguments[1:8]):
             sns.scatterplot(x='episode', y=arg, data=self.df, ax=ax[ax_index[n]])
 
         self.df.to_csv(path + 'recorded_data.csv', index=False)

@@ -3,16 +3,17 @@ import nest
 import numpy as np
 from env.example import run_simulation
 from env.network_params import Net_dict
+from env.helpers import Space
 
 
 class Neuron_env(object): 
 
     def __init__(self, fixed=[]): 
-        self.action_space = Space((len(net_states),))
-        self.observation_space = Space((1,))
- 
         self.network_dict = Net_dict(fixed=fixed)
         self.mutable_params = self.network_dict.get_initial_values().copy()
+
+        self.action_space = Space((len(self.mutable_params),))
+        self.observation_space = Space((1,))
 
         self.target_values = np.array([0.3, 1.4, 2.5, 0.5])
     
@@ -29,7 +30,7 @@ class Neuron_env(object):
         return reward, fire_rates
 
     def _act(self, action):
-        for i in self.mutable_parameters
+        for i in range(len(action)):
             self.mutable_params[i] += action[i] * self.mutable_params[i] / 5
         
         self.network_dict.set_values(self.mutable_params)
@@ -37,10 +38,11 @@ class Neuron_env(object):
     def _try_simulation(self):
         try: 
             fire_rates = self._simulate()
-            reward = self._get_reward(fire_rates)
         except IndexError:
             fire_rates = np.zeros([4])
-            reward = np.array(-20, dtype='f').reshape([1,])
+
+        reward = self._get_reward(fire_rates)
+
         return reward, fire_rates 
 
     def _get_reward(self, next_state):
