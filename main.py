@@ -37,6 +37,7 @@ for episode in range(episodes + 1):
     recorder.push(episode, reward, *next_state, q_loss, policy_loss, *params)
 
     print('Episode ' + str(episode), end='\r')
+
     if episode % 490 == 0:
         agent.test = True
     if episode % 500 == 0:

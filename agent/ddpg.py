@@ -143,4 +143,4 @@ class DDPGAgent:
 
             gc.collect()
         else:
-                raise OSError('Checkpoint not found')
+            raise OSError('Checkpoint not found')
