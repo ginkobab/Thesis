@@ -22,10 +22,11 @@ actor_lr = 1e-4
 env = Neuron_env(fixed)
 recorder = Recorder(['action_{}'.format(n) for n in range(len(env.mutable_params))])
 agent = DDPGAgent(env, tau, buffer_maxlen, critic_lr, actor_lr)
-# if os.path.isfile(checkpoint_path + 'model.pth.tar'):
-#     agent.load_checkpoint(checkpoint_path + 'model.pth.tar')
+start = 0
+if os.path.isfile(checkpoint_path + 'model.pth.tar'):
+    start += agent.load_checkpoint(checkpoint_path + 'model.pth.tar')
 
-for episode in range(episodes + 1):
+for episode in range(start + 1, episodes + start + 1):
 
     state = env.reset()
     action = agent.get_action(state)
@@ -42,5 +43,5 @@ for episode in range(episodes + 1):
         agent.test = True
     if episode % 3 == 0:
         agent.test = False
-        take_checkpoint(agent, recorder, checkpoint_path)
+        take_checkpoint(agent, recorder, checkpoint_path, episode)
 

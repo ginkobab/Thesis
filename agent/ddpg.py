@@ -49,14 +49,9 @@ class DDPGAgent:
         
         # initialize actor and critic networks
         self.critic = Critic(self.obs_dim, self.action_dim).to(self.device)
-        self.critic_target = Critic(self.obs_dim, self.action_dim).to(self.device)
         
         self.actor = Actor(self.obs_dim, self.action_dim).to(self.device)
-        self.actor_target = Actor(self.obs_dim, self.action_dim).to(self.device)
     
-        # Copy critic target parameters
-        for target_param, param in zip(self.critic_target.parameters(), self.critic.parameters()):
-            target_param.data.copy_(param.data)
         
         # optimizers
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=critic_learning_rate, weight_decay=0.01)
@@ -97,27 +92,17 @@ class DDPGAgent:
         policy_loss.backward()
         self.actor_optimizer.step()
 
-        # update target networks 
-        for target_param, param in zip(self.actor_target.parameters(), self.actor.parameters()):
-            target_param.data.copy_(param.data * self.tau + target_param.data * (1.0 - self.tau))
-       
-        for target_param, param in zip(self.critic_target.parameters(), self.critic.parameters()):
-            target_param.data.copy_(param.data * self.tau + target_param.data * (1.0 - self.tau))
-
         self.noise *= self.noise_decay
-
 
         return q_loss.item(), policy_loss.item()
 
 
-    def save_checkpoint(self, checkpoint_dir):
+    def save_checkpoint(self, checkpoint_dir, last_timestep):
         checkpoint_name = checkpoint_dir + 'model.pth.tar'
         checkpoint = {
-            # 'last_timestep': last_timestep,
+            'last_timestep': last_timestep,
             'actor': self.actor.state_dict(),
             'critic': self.critic.state_dict(),
-            'actor_target': self.actor_target.state_dict(),
-            'critic_target': self.critic_target.state_dict(),
             'actor_optimizer': self.actor_optimizer.state_dict(),
             'critic_optimizer': self.critic_optimizer.state_dict(),
             'replay_buffer': self.replay_buffer,
@@ -126,21 +111,26 @@ class DDPGAgent:
         gc.collect()
 
 
-    def load_checkpoint(self, checkpoint_path=None):
+    def load_checkpoint(self, checkpoint_path):
 
         if os.path.isfile(checkpoint_path):
             key = 'cuda' if torch.cuda.is_available() else 'cpu'
-
             checkpoint = torch.load(checkpoint_path, map_location=key)
-            # start_timestep = checkpoint['last_timestep'] + 1
+            start_timestep = checkpoint['last_timestep'] + 1
             self.actor.load_state_dict(checkpoint['actor'])
             self.critic.load_state_dict(checkpoint['critic'])
-            self.actor_target.load_state_dict(checkpoint['actor_target'])
-            self.critic_target.load_state_dict(checkpoint['critic_target'])
             self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer'])
             self.critic_optimizer.load_state_dict(checkpoint['critic_optimizer'])
             self.replay_buffer = checkpoint['replay_buffer']
 
             gc.collect()
+            self.actor.eval()
+            self.critic.eval()
+
         else:
             raise OSError('Checkpoint not found')
+
+        return start_timestep
+
+
+    def eval(self):

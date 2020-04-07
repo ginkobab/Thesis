@@ -39,9 +39,9 @@ class Recorder:
 
 
 
-def take_checkpoint(agent, _recorder, path ):
+def take_checkpoint(agent, _recorder, path, episode):
     _recorder.export(path)
-    agent.save_checkpoint(path)
+    agent.save_checkpoint(path, episode)
 
 
 def get_ax_index(total_elements):
