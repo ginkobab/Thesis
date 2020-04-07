@@ -14,12 +14,12 @@ class Recorder:
 
         self.df = pd.DataFrame(columns=self.arguments)
 
-    def push(self, *args):
-        row = self.generate_dict(*args)
-        self.df.from_dict(row)
+    def push(self, *values):
+        index = len(self.df.index) + 1
+        self.df.loc[index] = values
 
     def export(self):
-        self.clean_df(self)
+        self.clean_df()
         self.save_plot()
         self.df.to_csv('checkpoints/recorded_data.csv', index=False)
 
@@ -27,7 +27,7 @@ class Recorder:
         fig, axis = plt.subplots(2,4) 
         idx = get_axis_index()
         for n, arg in enumerate(self.arguments[1:8]):
-            sns.scatterplot(x='episode', y=arg, data=self.df, ax=axis[index[n]])
+            sns.scatterplot(x='episode', y=arg, data=self.df, ax=axis[idx[n]])
 
         fig.savefig('checkpoints/plots.png')
         plt.close()
@@ -46,7 +46,7 @@ def take_checkpoint(agent, recorder, episode):
 
 def load_checkpoint(agent, recorder):
     episode = 1
-    if os.path.isfile('checkpoints/model.pth.tar')
+    if os.path.isfile('checkpoints/model.pth.tar'):
         episode += agent.load_checkpoint('checkpoints/model.pth.tar')
         recorder.load_df
 

@@ -19,9 +19,9 @@ critic_lr = 1e-3
 actor_lr = 1e-4
 
 env = Neuron_env(fixed)
-recorder = Recorder(env)
 agent = DDPGAgent(env, tau, buffer_maxlen, critic_lr, actor_lr)
-start = load_checkpoint()
+recorder = Recorder(env)
+start = load_checkpoint(agent, recorder)
 
 for episode in range(start, episodes + start):
 

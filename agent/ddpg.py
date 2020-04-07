@@ -97,8 +97,8 @@ class DDPGAgent:
         return q_loss.item(), policy_loss.item()
 
 
-    def save_checkpoint(self, checkpoint_dir, last_timestep):
-        checkpoint_name = checkpoint_dir + 'model.pth.tar'
+    def save_checkpoint(self, last_timestep):
+        checkpoint_name = 'checkpoints/model.pth.tar'
         checkpoint = {
             'last_timestep': last_timestep,
             'actor': self.actor.state_dict(),
@@ -116,7 +116,7 @@ class DDPGAgent:
         if os.path.isfile(checkpoint_path):
             key = 'cuda' if torch.cuda.is_available() else 'cpu'
             checkpoint = torch.load(checkpoint_path, map_location=key)
-            start_timestep = checkpoint['last_timestep'] + 1
+            start_timestep = checkpoint['last_timestep']
             self.actor.load_state_dict(checkpoint['actor'])
             self.critic.load_state_dict(checkpoint['critic'])
             self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer'])
