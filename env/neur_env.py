@@ -7,39 +7,41 @@ from env.network_params import Net_dict
 
 class Neuron_env(object): 
 
-    def __init__(self): 
+    def __init__(self, fixed=[]): 
         self.action_space = Space((len(net_states),))
         self.observation_space = Space((1,))
-
-        self.backup_parameters = net_states.copy()
-        self.full_parameters = net_dict.copy()
-        self.mutable_parameters = net_states.copy() 
+ 
+        self.network_dict = Net_dict(fixed=fixed)
+        self.mutable_params = self.network_dict.get_initial_values().copy()
 
         self.target_values = np.array([0.3, 1.4, 2.5, 0.5])
     
     def reset(self):
-        self.mutable_parameters = self.backup_parameters.copy()
-        self.full_parameters.update(self.backup_parameters)
+        self.network_dict.reset()
+        self.mutable_params = self.network_dict.get_initial_values().copy()
 
         return np.asarray(1.0, dtype='f').reshape([-1,])
 
     def step(self, action):
         self.reset()
         self._act(action)
+        reward, fire_rates = self._try_simulation()
+        return reward, fire_rates
+
+    def _act(self, action):
+        for i in self.mutable_parameters
+            self.mutable_params[i] += action[i] * self.mutable_params[i] / 5
+        
+        self.network_dict.set_values(self.mutable_params)
+
+    def _try_simulation(self):
         try: 
             fire_rates = self._simulate()
             reward = self._get_reward(fire_rates)
         except IndexError:
             fire_rates = np.zeros([4])
             reward = np.array(-20, dtype='f').reshape([1,])
-
         return reward, fire_rates 
-
-    def _act(self, action):
-        for index, (key, value) in enumerate(self.mutable_parameters.items()):
-            self.mutable_parameters[key] = value + action[index] * value / 10
-        
-        self.full_parameters.update(self.mutable_parameters)
 
     def _get_reward(self, next_state):
         reward = -np.sum(np.abs(self.target_values - next_state))
@@ -48,7 +50,6 @@ class Neuron_env(object):
         return reward
 
     def _simulate(self):
-        fire_rates = run_simulation(self.full_parameters)
+        fire_rates = run_simulation(self.network_dict.get_dict())
 
         return fire_rates
-

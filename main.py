@@ -12,13 +12,14 @@ set_verbosity(30)
 
 episodes = 50000
 batch_size = 64
+fixed = []
 
 tau = 1e-3
 buffer_maxlen = 100000
 critic_lr = 1e-3
 actor_lr = 1e-4
 
-env = Neuron_env()
+env = Neuron_env(fixed)
 recorder = Recorder(env.mutable_parameters.keys())
 agent = DDPGAgent(env, tau, buffer_maxlen, critic_lr, actor_lr)
 if os.path.isfile(checkpoint_path + 'model.pth.tar'):
