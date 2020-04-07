@@ -38,7 +38,7 @@ class Neuron_env(object):
     def _try_simulation(self):
         try: 
             fire_rates = self._simulate()
-        except IndexError:
+        except Exception:
             fire_rates = np.zeros([4])
 
         reward = self._get_reward(fire_rates)
