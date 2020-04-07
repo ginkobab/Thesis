@@ -19,9 +19,9 @@ class Net_dict:
     def get_initial_values(self):
         free_values = []
 
-        if 'neuron' not in self.fixed:
-            free_values.extend(self.initial_values[:6])
         if 'synapse' not in self.fixed:
+            free_values.extend(self.initial_values[:6])
+        if 'neuron'  not in self.fixed:
             free_values.extend(self.initial_values[6:31])
         if 'structure' not in self.fixed:
             free_values.extend(self.initial_values[31:])
