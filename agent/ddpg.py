@@ -131,6 +131,3 @@ class DDPGAgent:
             raise OSError('Checkpoint not found')
 
         return start_timestep
-
-
-    def eval(self):
