@@ -2,7 +2,11 @@
 #
 # network_params.py
 #
-# This file is part of NEST.
+# This file was part of NEST.
+#
+# I've modified it to serve my purposes
+#
+# I'm very grateful to every NEST's programmer
 #
 # Copyright (C) 2004 The NEST Initiative
 #
@@ -31,25 +35,177 @@ Hendrik Rothe, Hannah Bos, Sacha van Albada; May 2016
 import numpy as np
 
 
+class Net_dict:
+
+    def __init__(self, fixed=[]):
+        self.load_parameters()
+        self.fixed = fixed
+
+        self.flat = {}
+        self.nested = {}
+
+        self.reset()
+
+    def get_dict(self):
+        self.build_nested()
+        return self.nested
+
+    def get_initial_values(self):
+        free_values = []
+
+        if 'neuron' not in self.fixed:
+            free_values.append(self.initial_values[:6])
+        if 'synapse' not in self.fixed:
+            free_values.append(self.initial_values[6:31])
+        if 'structure' not in self.fixed:
+            free_values.append(self.initial_values[31:])
+
+        return free_values
+
+    def set_values(self, params):
+        self.build_flat(params)
+
+    def reset(self):
+        self.build_flat(self.initial_values, resetting=True)
+        self.build_nested()
+
+    def build_nested(self):
+        self.copy_synapse_params()
+        self.copy_neuron_params()
+        self.copy_connection_params()
+
+        self.generate_mean_values()
+        self.update_with_mean_values()
+
+    def build_flat(self, parameters, resetting=False):
+        params = parameters.copy()
+        if 'synapse' not in self.fixed or resetting:
+            self.set_synapse_params(params[0:6])
+            del params[0:6]
+
+        if 'neuron' not in self.fixed or resetting:
+            self.set_neuron_params(params[0:9])
+            self.set_voltage_mean(params[9:17])
+            self.set_sd_mean(params[17:25])
+            del params[0:25]
+
+        if 'structure' not in self.fixed or resetting:
+            self.set_connection_matrix(params[0:64])
+
+    def set_synapse_params(self, params):
+        for index, param_name in enumerate(self.synapse_params):
+            self.flat[param_name] = params[index]
+
+    def set_neuron_params(self, params):
+        for index, param_name in enumerate(self.neuron_params):
+            self.flat[param_name] = params[index]
+
+    def set_voltage_mean(self, params):
+        for i in range(8):
+            self.flat['V0_mean_{}'.format(i)] = params[i]
+
+    def set_sd_mean(self, params):
+        for i in range(8):
+            self.flat['V0_sd_{}'.format(i)] = params[i]
+
+    def set_connection_matrix(self, params):
+        i = 0
+        for row in range(8):
+            for col in range(8):
+                self.flat['conn_probs_{}_{}'.format(row, col)] = params[i]
+                i += 1
+
+    def copy_synapse_params(self):
+        for param in self.synapse_params:
+            self.nested[param] = self.flat[param]
+
+    def copy_neuron_params(self):
+        self.nested['neuron_params'] = {neur_param: self.flat[neur_param] 
+                                        for neur_param in self.neuron_params}
+
+        voltage_mean = self.get_voltage_mean()
+        voltage_sd = self.get_voltage_sd()
+
+        self.nested['neuron_params']['V0_mean'] = voltage_mean
+        self.nested['neuron_params']['V0_sd'] = voltage_sd
+
+    def copy_connection_params(self):
+        conn_values = np.array([self.flat['conn_probs_{}_{}'.format(row, col)]
+                      for row in range(8) for col in range(8)]).reshape([8,8])
+
+        self.nested['conn_probs'] = conn_values
+
+    def get_voltage_mean(self):
+        return {'original' :58.0, 
+                'optimized': [self.flat['V0_mean_{}'.format(i)]
+                              for i in range(8)]}
+    def get_voltage_sd(self):
+        return {'original' : 10.0, 
+                'optimized': [self.flat['V0_sd_{}'.format(i)] 
+                              for i in range(8)]}
+
+    def generate_mean_values(self):
+
+        self.nested.update(self.immutable)
+
+        self.mean_params = {
+        'PSP_mean_matrix': get_mean_PSP_matrix(
+        self.nested['PSP_e'], self.nested['g'], len(self.nested['populations'])
+        ),
+        'PSP_std_matrix': get_std_PSP_matrix(
+        self.nested['PSP_sd'], len(self.nested['populations'])
+        ),
+        'mean_delay_matrix': get_mean_delays(
+        self.nested['mean_delay_exc'], self.nested['mean_delay_inh'],
+        len(self.nested['populations'])
+        ),
+        'std_delay_matrix': get_std_delays(
+        self.nested['mean_delay_exc'] * self.nested['rel_std_delay'],
+        self.nested['mean_delay_inh'] * self.nested['rel_std_delay'],
+        len(self.nested['populations'])
+        )}
+
+    def update_with_mean_values(self):
+        self.nested.update(self.mean_params)
+
+    def load_parameters(self):
+        self.immutable = {
+        'K_scaling': 0.1,
+        'N_scaling': 0.1,
+        'bg_rate': 8.,
+        'poisson_input': True,
+        'poisson_delay': 1.5,
+        'V0_type': 'optimized',
+        'neuron_model': 'iaf_psc_exp',
+        'rec_dev': ['spike_detector'],
+        'populations': 
+        ['L23E', 'L23I', 'L4E', 'L4I', 'L5E', 'L5I', 'L6E', 'L6I'],
+        'N_full': np.array([20683, 5834, 21915, 5479, 4850, 1065, 14395, 2948]),
+        'K_ext': np.array([1600, 1500, 2100, 1900, 2000, 1900, 2900, 2100]),
+        'full_mean_rates':
+        np.array([0.971, 2.868, 4.746, 5.396, 8.142, 9.078, 0.991, 7.523])}
+
+        self.initial_values = [0.15, 0.1, -4, 1.5, 0.75, 0.5, -65.0, -50.0,
+                -65.0, 250.0, 10.0, 0.5, 0.5, 0.5, 2.0, -68.28, -63.16, -63.33,
+                -63.4, -63.11, -61.66, -66.72, -61.43, 5.36, 4.57, 4.74, 4.94,
+                4.94, 4.55, 5.46, 4.48, 0.1009, 0.1689, 0.0437, 0.0818, 0.0323,
+                0., 0.0076, 0., 0.1346, 0.1371, 0.0316, 0.0515, 0.0755, 0.,
+                0.0042, 0., 0.0077, 0.0059, 0.0497, 0.135, 0.0067, 0.0003,
+                0.0453, 0., 0.0691, 0.0029, 0.0794, 0.1597, 0.0033, 0.,
+                0.1057, 0., 0.1004, 0.0622, 0.0505, 0.0057, 0.0831, 0.3726,
+                0.0204, 0., 0.0548, 0.0269, 0.0257, 0.0022, 0.06, 0.3158,
+                0.0086, 0., 0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197,
+                0.0396, 0.2252, 0.0364, 0.001, 0.0034, 0.0005, 0.0277, 0.008,
+                0.0658, 0.1443]
+
+        self.synapse_params = ['PSP_e', 'PSP_sd', 'g', 'mean_delay_exc',
+                            'mean_delay_inh', 'rel_std_delay']
+
+        self.neuron_params = ['E_L', 'V_th', 'V_reset', 'C_m', 'tau_m', 
+                              'tau_syn_ex', 'tau_syn_in', 'tau_syn_E', 't_ref']
+
+
 def get_mean_delays(mean_delay_exc, mean_delay_inh, number_of_pop):
-    """ Creates matrix containing the delay of all connections.
-
-    Parameters
-    ----------
-    mean_delay_exc
-        Delay of the excitatory connections.
-    mean_delay_inh
-        Delay of the inhibitory connections.
-    number_of_pop
-        Number of populations.
-
-    Returns
-    -------
-    mean_delays
-        Matrix specifying the mean delay of all connections.
-
-    """
-
     dim = number_of_pop
     mean_delays = np.zeros((dim, dim))
     mean_delays[:, 0:dim:2] = mean_delay_exc
@@ -58,24 +214,6 @@ def get_mean_delays(mean_delay_exc, mean_delay_inh, number_of_pop):
 
 
 def get_std_delays(std_delay_exc, std_delay_inh, number_of_pop):
-    """ Creates matrix containing the standard deviations of all delays.
-
-    Parameters
-    ----------
-    std_delay_exc
-        Standard deviation of excitatory delays.
-    std_delay_inh
-        Standard deviation of inhibitory delays.
-    number_of_pop
-        Number of populations in the microcircuit.
-
-    Returns
-    -------
-    std_delays
-        Matrix specifying the standard deviation of all delays.
-
-    """
-
     dim = number_of_pop
     std_delays = np.zeros((dim, dim))
     std_delays[:, 0:dim:2] = std_delay_exc
@@ -84,27 +222,6 @@ def get_std_delays(std_delay_exc, std_delay_inh, number_of_pop):
 
 
 def get_mean_PSP_matrix(PSP_e, g, number_of_pop):
-    """ Creates a matrix of the mean evoked postsynaptic potential.
-
-    The function creates a matrix of the mean evoked postsynaptic
-    potentials between the recurrent connections of the microcircuit.
-    The weight of the connection from L4E to L23E is doubled.
-
-    Parameters
-    ----------
-    PSP_e
-        Mean evoked potential.
-    g
-        Relative strength of the inhibitory to excitatory connection.
-    number_of_pop
-        Number of populations in the microcircuit.
-
-    Returns
-    -------
-    weights
-        Matrix of the weights for the recurrent connections.
-
-    """
     dim = number_of_pop
     weights = np.zeros((dim, dim))
     exc = PSP_e
@@ -116,151 +233,8 @@ def get_mean_PSP_matrix(PSP_e, g, number_of_pop):
 
 
 def get_std_PSP_matrix(PSP_rel, number_of_pop):
-    """ Relative standard deviation matrix of postsynaptic potential created.
-
-    The relative standard deviation matrix of the evoked postsynaptic potential
-    for the recurrent connections of the microcircuit is created.
-
-    Parameters
-    ----------
-    PSP_rel
-        Relative standard deviation of the evoked postsynaptic potential.
-    number_of_pop
-        Number of populations in the microcircuit.
-
-    Returns
-    -------
-    std_mat
-        Matrix of the standard deviation of postsynaptic potentials.
-
-    """
     dim = number_of_pop
     std_mat = np.zeros((dim, dim))
     std_mat[:, :] = PSP_rel
     return std_mat
 
-net_states = {
-    # Mean amplitude of excitatory postsynaptic potential (in mV).
-    'PSP_e': 0.15,
-    # Relative standard deviation of the postsynaptic potential.
-    'PSP_sd': 0.1,
-    # Relative inhibitory synaptic strength (in relative units).
-    'g': -4,
-    # Mean delay of excitatory connections (in ms).
-    'mean_delay_exc': 1.5,
-    # Mean delay of inhibitory connections (in ms).
-    'mean_delay_inh': 0.75,
-    # Relative standard deviation of the delay of excitatory and
-    # inhibitory connections (in relative units).
-    'rel_std_delay': 0.5,
-    # Parameters of the neurons.
-    'neuron_params': {
-        # Reset membrane potential of the neurons (in mV).
-        'E_L': -65.0,
-        # Threshold potential of the neurons (in mV).
-        'V_th': -50.0,
-        # Membrane potential after a spike (in mV).
-        'V_reset': -65.0,
-        # Membrane capacitance (in pF).
-        'C_m': 250.0,
-        # Membrane time constant (in ms).
-        'tau_m': 10.0,
-        # Time constant of postsynaptic excitatory currents (in ms).
-        'tau_syn_ex': 0.5,
-        # Time constant of postsynaptic inhibitory currents (in ms).
-        'tau_syn_in': 0.5,
-        # Time constant of external postsynaptic excitatory current (in ms).
-        'tau_syn_E': 0.5,
-        # Refractory period of the neurons after a spike (in ms).
-        't_ref': 2.0,
-
-        # Membrane potential average for the neurons (in mV).
-        'V0_mean': {'original': -58.0,
-                    'optimized': [-68.28, -63.16, -63.33, -63.45,
-                                  -63.11, -61.66, -66.72, -61.43]},
-        # Standard deviation of the average membrane potential (in mV).
-        'V0_sd': {'original': 10.0,
-                  'optimized': [5.36, 4.57, 4.74, 4.94,
-                                4.94, 4.55, 5.46, 4.48]}},
-
-    # The default recording device is the spike_detector. If you also
-    # want to record the membrane potentials of the neurons, add
-    # Connection probabilities. The first index corresponds to the targets
-    # and the second to the sources.
-    'conn_probs':
-        np.array(
-            [[0.1009, 0.1689, 0.0437, 0.0818, 0.0323, 0., 0.0076, 0.],
-             [0.1346, 0.1371, 0.0316, 0.0515, 0.0755, 0., 0.0042, 0.],
-             [0.0077, 0.0059, 0.0497, 0.135, 0.0067, 0.0003, 0.0453, 0.],
-             [0.0691, 0.0029, 0.0794, 0.1597, 0.0033, 0., 0.1057, 0.],
-             [0.1004, 0.0622, 0.0505, 0.0057, 0.0831, 0.3726, 0.0204, 0.],
-             [0.0548, 0.0269, 0.0257, 0.0022, 0.06, 0.3158, 0.0086, 0.],
-             [0.0156, 0.0066, 0.0211, 0.0166, 0.0572, 0.0197, 0.0396, 0.2252],
-             [0.0364, 0.001, 0.0034, 0.0005, 0.0277, 0.008, 0.0658, 0.1443]]
-            )
-        }
-net_immutable{
-    # Number of external connections to the different populations.
-    # The order corresponds to the order in 'populations'.
-    'K_ext': np.array([1600, 1500, 2100, 1900, 2000, 1900, 2900, 2100]),
-
-    # Factor to scale the indegrees.
-    'K_scaling': 0.1,
-    # Factor to scale the number of neurons.
-    'N_scaling': 0.1,
-    # Rate of the Poissonian spike generator (in Hz).
-    'bg_rate': 8.,
-    # Turn Poisson input on or off (True or False).
-    'poisson_input': True,
-    # Delay of the Poisson generator (in ms).
-    'poisson_delay': 1.5,
-    # Initial conditions for the membrane potential, options are:
-    # 'original': uniform mean and std for all populations.
-    # 'optimized': population-specific mean and std, allowing a reduction of
-    # the initial activity burst in the network.
-    # Choose either 'original' or 'optimized'.
-    # 'voltmeter' to the list.
-    'rec_dev': ['spike_detector'],
-    # Names of the simulated populations.
-    'populations': ['L23E', 'L23I', 'L4E', 'L4I', 'L5E', 'L5I', 'L6E', 'L6I'],
-    # Number of neurons in the different populations. The order of the
-    # elements corresponds to the names of the variable 'populations'.
-    'N_full': np.array([20683, 5834, 21915, 5479, 4850, 1065, 14395, 2948]),
-    # Mean rates of the different populations in the non-scaled version
-    # of the microcircuit. Necessary for the scaling of the network.
-    # The order corresponds to the order in 'populations'.
-    'full_mean_rates':
-        np.array([0.971, 2.868, 4.746, 5.396, 8.142, 9.078, 0.991, 7.523]),
-
-    'V0_type': 'optimized',
-
-    # Neuron model.
-    'neuron_model': 'iaf_psc_exp'
-    }
-
-updated_dict = {
-    # PSP mean matrix.
-    'PSP_mean_matrix': get_mean_PSP_matrix(
-        net_states['PSP_e'], net_states['g'], len(net_immutable['populations'])
-        ),
-    # PSP std matrix.
-    'PSP_std_matrix': get_std_PSP_matrix(
-        net_states['PSP_sd'], len(net_immutable['populations'])
-        ),
-    # mean delay matrix.
-    'mean_delay_matrix': get_mean_delays(
-        net_states['mean_delay_exc'], net_states['mean_delay_inh'],
-        len(net_immutable['populations'])
-        ),
-    # std delay matrix.
-    'std_delay_matrix': get_std_delays(
-        net_states['mean_delay_exc'] * net_states['rel_std_delay'],
-        net_states['mean_delay_inh'] * net_states['rel_std_delay'],
-        len(net_immutable['populations'])
-        ),
-    }
-
-net_dict = {}
-net_dict.update(net_states)
-net_dict.update(net_immutable) 
-net_dict.update(updated_dict)
