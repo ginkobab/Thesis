@@ -31,7 +31,7 @@ class Neuron_env(object):
 
     def _act(self, action):
         for i in range(len(action)):
-            self.mutable_params[i] += action[i] * self.mutable_params[i] / 5
+            self.mutable_params[i] += (action[i] * self.mutable_params[i] / 5)
         
         self.network_dict.set_values(self.mutable_params)
 

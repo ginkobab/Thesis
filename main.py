@@ -34,8 +34,7 @@ for episode in range(episodes + 1):
     agent.replay_buffer.push(state, action, reward)
     q_loss, policy_loss = agent.update(batch_size)
 
-    params = env.mutable_params
-    recorder.push(episode, reward, *next_state, q_loss, policy_loss, *params)
+    recorder.push(episode, reward, *next_state, q_loss, policy_loss, *action)
 
     print('Episode ' + str(episode), end='\r')
 
