@@ -70,7 +70,7 @@ class DDPGAgent:
     
     def update(self, batch_size):
         if len(self.replay_buffer) < batch_size:
-            return None, None
+            return 0.0, 0.0
 
         transitions = self.replay_buffer.sample(batch_size)
         batch = Transition(*zip(*transitions))

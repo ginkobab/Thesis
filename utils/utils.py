@@ -19,7 +19,6 @@ class Recorder:
         self.df.loc[index] = values
 
     def export(self):
-        self.clean_df()
         self.save_plot()
         self.df.to_csv('checkpoints/recorded_data.csv', index=False)
 
@@ -32,11 +31,7 @@ class Recorder:
         fig.savefig('checkpoints/plots.png')
         plt.close()
 
-    def clean_df(self):
-        self.df = self.df.fillna(0.0)
-        self.df.reward = self.df.loc[:, 'reward'].apply(lambda x: x[0])
-
-    def load_df(self, path):
+    def load_df(self):
         self.df = pd.read_csv('checkpoints/recorded_data.csv')
 
 
@@ -48,7 +43,7 @@ def load_checkpoint(agent, recorder):
     episode = 1
     if os.path.isfile('checkpoints/model.pth.tar'):
         episode += agent.load_checkpoint('checkpoints/model.pth.tar')
-        recorder.load_df
+        recorder.load_df()
 
 
     return episode

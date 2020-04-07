@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 from nest import set_verbosity
 
@@ -7,11 +8,17 @@ from env.neur_env import Neuron_env
 from utils.utils import Recorder
 from utils.utils import take_checkpoint, load_checkpoint
 
+fixed = []
+if len(sys.argv) > 1:
+    for i in sys.argv[1:]:
+        fixed.append(i)
+
 set_verbosity(30)
 
 episodes = 50000
-batch_size = 2
-fixed = ['neuron', 'structure']
+batch_size = 64
+
+
 
 tau = 1e-3
 buffer_maxlen = 100000
@@ -32,13 +39,13 @@ for episode in range(start, episodes + start):
     agent.replay_buffer.push(state, action, reward)
     q_loss, policy_loss = agent.update(batch_size)
 
-    recorder.push(episode, reward, *next_state, q_loss, policy_loss, *action)
+    recorder.push(episode, float(reward), *next_state, q_loss, policy_loss, *action)
 
     print('Episode ' + str(episode), end='\r')
 
     if episode % 490 == 0:
         agent.test = True
-    if episode % 3 == 0:
+    if episode % 500 == 0:
         agent.test = False
         take_checkpoint(agent, recorder, episode)
 
