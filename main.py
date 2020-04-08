@@ -8,8 +8,9 @@ from env.neur_env import Neuron_env
 from utils.utils import Recorder
 from utils.utils import take_checkpoint, load_checkpoint
 
-fixed = []
+fixed = ['neuron', 'structure']
 if len(sys.argv) > 1:
+    fixed = []
     for i in sys.argv[1:]:
         fixed.append(i)
 
@@ -20,13 +21,12 @@ batch_size = 64
 
 
 
-tau = 1e-3
-buffer_maxlen = 100000
+buffer_maxlen = 50000
 critic_lr = 1e-3
 actor_lr = 1e-4
 
 env = Neuron_env(fixed)
-agent = DDPGAgent(env, tau, buffer_maxlen, critic_lr, actor_lr)
+agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)
 recorder = Recorder(env)
 start = load_checkpoint(agent, recorder)
 
@@ -43,9 +43,9 @@ for episode in range(start, episodes + start):
 
     print('Episode ' + str(episode), end='\r')
 
-    if episode % 490 == 0:
+    if episode % 195 == 0:
         agent.test = True
-    if episode % 500 == 0:
+    if episode % 200 == 0:
         agent.test = False
         take_checkpoint(agent, recorder, episode)
 

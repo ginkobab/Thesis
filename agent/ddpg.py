@@ -33,27 +33,21 @@ class Buffer(object):
 
 class DDPGAgent:
     
-    def __init__(self, env, tau, buffer_maxlen, critic_learning_rate, actor_learning_rate):
+    def __init__(self, env, buffer_maxlen, critic_learning_rate, actor_learning_rate):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         
         self.env = env
         self.obs_dim = env.observation_space.shape[0]
         self.action_dim = env.action_space.shape[0]
         
-        # hyperparameters
         self.env = env
-        self.tau = tau
         self.test = False
         self.noise = 1.0
         self.noise_decay = 0.9999
         
-        # initialize actor and critic networks
         self.critic = Critic(self.obs_dim, self.action_dim).to(self.device)
-        
         self.actor = Actor(self.obs_dim, self.action_dim).to(self.device)
     
-        
-        # optimizers
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=critic_learning_rate, weight_decay=0.01)
         self.actor_optimizer  = optim.Adam(self.actor.parameters(), lr=actor_learning_rate, weight_decay=0.01)
     
@@ -129,5 +123,4 @@ class DDPGAgent:
 
         else:
             raise OSError('Checkpoint not found')
-
         return start_timestep
