@@ -8,7 +8,7 @@ from env.helpers import Space
 
 class Neuron_env(object): 
 
-    def __init__(self, fixed=[]): 
+    def __init__(self, fixed=[], plot=False): 
         self.network_dict = Net_dict(fixed=fixed)
         self.mutable_params = self.network_dict.get_initial_values().copy()
 
@@ -16,6 +16,7 @@ class Neuron_env(object):
         self.observation_space = Space((1,))
 
         self.target_values = np.array([0.3, 1.4, 2.5, 0.5])
+        self.plot = plot
     
     def reset(self):
         self.network_dict.reset()
@@ -52,6 +53,6 @@ class Neuron_env(object):
         return reward
 
     def _simulate(self):
-        fire_rates = run_simulation(self.network_dict.get_dict())
+        fire_rates = run_simulation(self.network_dict.get_dict(), plot=self.plot)
 
         return fire_rates

@@ -479,7 +479,7 @@ class Network:
         """ Simulates the microcircuit."""
         nest.Simulate(self.sim_dict['t_sim'])
 
-    def evaluate(self, raster_plot_time_idx, fire_rate_time_idx):
+    def evaluate(self, raster_plot_time_idx, fire_rate_time_idx, plot=False):
         """ Displays output of the simulation.
 
         Calculates the firing rate of each population,
@@ -492,3 +492,10 @@ class Network:
                 self.data_path, 'spike_detector',
                 fire_rate_time_idx[0], fire_rate_time_idx[1]
                 )
+
+        if plot:
+            plot_raster(
+                self.data_path, 'spike_detector',
+                raster_plot_time_idx[0], raster_plot_time_idx[1]
+                )
+            boxplot(self.net_dict, self.data_path)
