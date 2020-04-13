@@ -52,4 +52,3 @@ for episode in range(start, episodes + start):
         if test_episode >= 5:
             agent.test = False
             take_checkpoint(agent, recorder, episode)
-
