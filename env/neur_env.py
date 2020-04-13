@@ -32,14 +32,14 @@ class Neuron_env(object):
 
     def _act(self, action):
         for i in range(len(action)):
-            self.mutable_params[i] += (action[i] * self.mutable_params[i] / 5)
+            self.mutable_params[i] += (action[i] * self.mutable_params[i] / 20)
         
         self.network_dict.set_values(self.mutable_params)
 
     def _try_simulation(self):
         try: 
             fire_rates = self._simulate()
-        except Exception:
+        except IndexError:
             fire_rates = np.zeros([4])
 
         reward = self._get_reward(fire_rates)
@@ -47,7 +47,7 @@ class Neuron_env(object):
         return reward, fire_rates 
 
     def _get_reward(self, next_state):
-        reward = -np.sum(np.abs(self.target_values - next_state))
+        reward = -np.sum(np.sqrt(np.abs(self.target_values - next_state)))
         reward = np.asarray(reward, dtype='f').reshape([1,])
 
         return reward

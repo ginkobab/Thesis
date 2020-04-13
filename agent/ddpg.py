@@ -20,7 +20,9 @@ class Buffer(object):
     def push(self, *args):
         if len(self.memory) < self.capacity:
             self.memory.append(None)
-        self.memory[self.position] = Transition(*(torch.from_numpy(i) for i in args))
+        if any(i is None for i in args):
+            return
+        self.memory[self.position] = Transition(*(torch.from_numpy(i).to('cuda') for i in args))
         self.position = (self.position + 1) % self.capacity
 
     def sample(self, batch_size):

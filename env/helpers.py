@@ -291,7 +291,10 @@ def load_spike_times(path, name, begin, end):
             files[i]
             ]
         data_temp = [np.loadtxt(os.path.join(path, f)) for f in temp3]
-        data_concatenated = np.concatenate(data_temp)
+        try:
+            data_concatenated = np.concatenate(data_temp)
+        except ValueError:
+            return None
         data_raw = data_concatenated[np.argsort(data_concatenated[:, 1])]
         idx = ((data_raw[:, 1] > begin) * (data_raw[:, 1] < end))
         data[i] = data_raw[idx]
@@ -319,6 +322,8 @@ def plot_raster(path, name, begin, end):
     """
     files, gids = read_name(path, name)
     data_all = load_spike_times(path, name, begin, end)
+    if not data_all:
+        return 
     highest_gid = gids[-1][-1]
     gids_numpy = np.asarray(gids)
     gids_numpy_changed = abs(gids_numpy - highest_gid) + 1
@@ -371,6 +376,8 @@ def fire_rate(path, name, begin, end):
     """
     files, gids = read_name(path, name)
     data_all = load_spike_times(path, name, begin, end)
+    if not data_all:
+        return 
     rates_averaged_all = []
     rates_std_all = []
     for h in list(range(len(files))):

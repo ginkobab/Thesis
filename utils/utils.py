@@ -10,7 +10,7 @@ class Recorder:
         action_list = get_action_list(env)
         self.arguments = ['episode', 'reward', 'layer_23', 'layer_4',
                           'layer_5', 'layer_6', 'q_loss', 'policy_loss',
-                          *action_list]
+                          *action_list, 'testing']
 
         self.df = pd.DataFrame(columns=self.arguments)
 

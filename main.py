@@ -8,7 +8,7 @@ from env.neur_env import Neuron_env
 from utils.utils import Recorder
 from utils.utils import take_checkpoint, load_checkpoint
 
-fixed = ['neuron', 'structure']
+fixed = ['neuron', 'synapse']
 if len(sys.argv) > 1:
     fixed = []
     for i in sys.argv[1:]:
@@ -39,13 +39,17 @@ for episode in range(start, episodes + start):
     agent.replay_buffer.push(state, action, reward)
     q_loss, policy_loss = agent.update(batch_size)
 
-    recorder.push(episode, float(reward), *next_state, q_loss, policy_loss, *action)
+    recorder.push(episode, float(reward), *next_state, q_loss, policy_loss, *action, agent.test)
 
     print('Episode ' + str(episode), end='\r')
 
     if episode % 195 == 0:
         agent.test = True
-    if episode % 200 == 0:
-        agent.test = False
-        take_checkpoint(agent, recorder, episode)
+        test_episode = 0
+
+    if agent.test:
+        test_episode += 1
+        if test_episode >= 5:
+            agent.test = False
+            take_checkpoint(agent, recorder, episode)
 

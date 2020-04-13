@@ -1,12 +1,9 @@
-import numpy as np
-from nest import set_verbosity
-
 from agent.ddpg import DDPGAgent
 from env.neur_env import Neuron_env
 from utils.utils import Recorder
 from utils.utils import take_checkpoint, load_checkpoint
 
-fixed = ['neuron', 'structure']
+fixed = ['neuron', 'synapse']
 
 buffer_maxlen = 100000
 critic_lr = 1e-3
@@ -25,11 +22,3 @@ reward, next_state = env.step(action)
 print('\n')
 print(reward)
 print(next_state)
-
-
-#take_checkpoint(agent, recorder, episode)
-print('done')
-
-
-
-
