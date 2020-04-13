@@ -17,15 +17,32 @@ As it is being showed in other domains, such as predicting protein structure \ci
 
 \subsection{Reinforcement Learning} 
 
-Reinforcement Learning is an area of machine learning which consider a setup consisting of an agent interacting with an environment through actions. The agents receives an input from the environment, chooses an action and receives a reward, based on the state of the environment after the action.
+Reinforcement Learning is an area of machine learning which considers a setup consisting of an agent interacting with an environment through actions. The agent receives an input from the environment, chooses an action and receives a reward, based on the state of the environment after the action.
 The agent behavior is defined by a policy, which maps actions to states. An action-value function tries to predict the reward after taking an action.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{pictures/rl.pdf}
+	\caption{A Generic Reinforcement Learning setup}
+	\label{fig:rl}
+\end{figure}
+
 \myparagraph{Bandits} 
-We consider the simple case of the multi-armed bandit, where the environment reaches the terminal state after one single transition, and the agent has to choose a value for many different actions in a continuous space.
+We consider the simple case of the multi-armed bandit, where the environment reaches the terminal state after one single transition, and the agent has to choose a value for many different actions in a continuous space. The main problem to solve in this kind of setup is the balance between exploration and exploitation: we want the agent to take the best action possible action, but that could prevent him to explore the environment and find even better actions. One solution is to add simple Gaussian Noise to the actions, that decays slowly as the training goes on. This way the agent is able to point in one direction, but can choose a precise value only after a high number of episodes, when he has explored the environment enough.
 
 \myparagraph{The Actor-Critic} 
 The kind of algorithm we are using belongs to the family of actor-critic algorithms, where the actor is an Artificial Neural Network (ANN) that represents the policy, while the critic is another ANN representing the action-value function.
-The critic is trained to predict how big the reward will be after an action is taken, and the actor is trained to take the best possible action. The critics try to understand the environment, and the actor uses this knowledge to change it in the desired way.
+The critic is trained to predict how big the reward will be after an action is taken, and the actor is trained to take the best possible action. The critics try to understand the environment, and the actor uses this knowledge to change it in the desired way. It is useful to use ANNs because they are great at approximating functions, and since the environment we'll be using is very complex, they compensate the need to explore every possible combination of the parameters, inferring how the environment could respond in non-explored states.
 
+\subsection{The Potjans and Diesmann Model} 
 
+Potjans and Diesmann developed a model of a generic cortical column \cite{potjans}, extending the random balanced network \cite{brunel} to a four-layered column comprising excitatory and inhibitory populations. Biological data from in vivo observations on different mammals were used to infer the parameters. They simulated the resting state input from other cortical regions through a Poisson distribution.
+The firing rates were compared with the values recorded on other studies \cite{kock} and the trend showed in both cases was similar (Figure \ref{fig:potjans_barplot}), yet it wasn't accurately matched. From the experiment it is apparent how much the structure of the model is prominent in defining its behavior.
+
+\begin{figure}[h]
+	\raggedleft
+	\includegraphics[scale=0.4]{pictures/potjans_barplot.pdf}
+	\caption{Comparison of firing rates from the different studies}
+	\label{fig:potjans_barplot}
+\end{figure}
 
