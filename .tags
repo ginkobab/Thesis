@@ -44,7 +44,6 @@ agent	main.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
 agent	retrain.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
 agent	test.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
 autograd	agent/ddpg.py	/^import torch.autograd as autograd$/;"	I
-ax	article/pictures/potjans_plot.py	/^fig, ax = plt.subplots(figsize=(16,10))$/;"	v
 batch_size	main.py	/^batch_size = 64$/;"	v
 batch_size	retrain.py	/^batch_size = 248$/;"	v
 boxplot	env/helpers.py	/^def boxplot(net_dict, path):$/;"	f
@@ -70,8 +69,6 @@ create_thalamic_input	env/network.py	/^    def create_thalamic_input(self):$/;"	
 critic_lr	main.py	/^critic_lr = 1e-3$/;"	v
 critic_lr	retrain.py	/^critic_lr = 1e-3$/;"	v
 critic_lr	test.py	/^critic_lr = 1e-3$/;"	v
-d	article/pictures/potjans_plot.py	/^d = {$/;"	v
-df	article/pictures/potjans_plot.py	/^df = pd.DataFrame(d)$/;"	v
 env	main.py	/^env = Neuron_env(fixed)$/;"	v
 env	retrain.py	/^env = Neuron_env(fixed)$/;"	v
 env	test.py	/^env = Neuron_env(fixed, plot=True)$/;"	v
@@ -80,7 +77,6 @@ episodes	retrain.py	/^episodes = 50000$/;"	v
 evaluate	env/network.py	/^    def evaluate(self, raster_plot_time_idx, fire_rate_time_idx, plot=False):$/;"	m	class:Network
 export	utils/utils.py	/^    def export(self):$/;"	m	class:Recorder
 fan_in_uniform_init	agent/models.py	/^def fan_in_uniform_init(tensor, fan_in=None):$/;"	f
-fig	article/pictures/potjans_plot.py	/^fig, ax = plt.subplots(figsize=(16,10))$/;"	v
 fire_rate	env/helpers.py	/^def fire_rate(path, name, begin, end):$/;"	f
 fixed	main.py	/^    fixed = []$/;"	v
 fixed	main.py	/^fixed = ['neuron', 'synapse']$/;"	v
@@ -125,10 +121,8 @@ np	main.py	/^import numpy as np$/;"	I
 np	retrain.py	/^import numpy as np$/;"	I
 np	utils/utils.py	/^import numpy as np$/;"	I
 optim	agent/ddpg.py	/^import torch.optim as optim$/;"	I
-pd	article/pictures/potjans_plot.py	/^import pandas as pd$/;"	I
 pd	utils/utils.py	/^import pandas as pd$/;"	I
 plot_raster	env/helpers.py	/^def plot_raster(path, name, begin, end):$/;"	f
-plt	article/pictures/potjans_plot.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	env/helpers.py	/^import matplotlib.pyplot as plt$/;"	I
 plt	utils/utils.py	/^import matplotlib.pyplot as plt$/;"	I
 policy_loss	main.py	/^    q_loss, policy_loss = agent.update(batch_size)$/;"	v

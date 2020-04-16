@@ -118,6 +118,7 @@ class DDPGAgent:
             self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer'])
             self.critic_optimizer.load_state_dict(checkpoint['critic_optimizer'])
             self.replay_buffer = checkpoint['replay_buffer']
+            self.noise = self.noise_decay ** start_timestep
 
             gc.collect()
             self.actor.eval()
