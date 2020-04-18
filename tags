@@ -15,18 +15,18 @@ F	agent/ddpg.py	/^import torch.nn.functional as F$/;"	I
 F	agent/models.py	/^import torch.nn.functional as F$/;"	I
 Net_dict	env/network_params.py	/^class Net_dict:$/;"	c
 Network	env/network.py	/^class Network:$/;"	c
-Neuron_env	env/neur_env.py	/^class Neuron_env(object): $/;"	c
+Neuron_env	env/neur_env.py	/^class Neuron_env(object):$/;"	c
 Recorder	utils/utils.py	/^class Recorder:$/;"	c
 Space	env/helpers.py	/^class Space(object):$/;"	c
 Transition	agent/ddpg.py	/^Transition = namedtuple('Transition',$/;"	v
 __init__	agent/ddpg.py	/^    def __init__(self, capacity):$/;"	m	class:Buffer
-__init__	agent/ddpg.py	/^    def __init__(self, env, buffer_maxlen, critic_learning_rate, actor_learning_rate):$/;"	m	class:DDPGAgent
+__init__	agent/ddpg.py	/^    def __init__(self, env, buffer_maxlen,$/;"	m	class:DDPGAgent
 __init__	agent/models.py	/^    def __init__(self, state_size, action_size):$/;"	m	class:Critic
 __init__	agent/models.py	/^    def __init__(self, state_size, action_size, action_range=None):$/;"	m	class:Actor
 __init__	env/helpers.py	/^    def __init__(self, shape):$/;"	m	class:Space
 __init__	env/network.py	/^    def __init__(self, sim_dict, net_dict, stim_dict=None):$/;"	m	class:Network
 __init__	env/network_params.py	/^    def __init__(self, fixed=[]):$/;"	m	class:Net_dict
-__init__	env/neur_env.py	/^    def __init__(self, fixed=[], plot=False): $/;"	m	class:Neuron_env
+__init__	env/neur_env.py	/^    def __init__(self, fixed=[], plot=False):$/;"	m	class:Neuron_env
 __init__	utils/utils.py	/^    def __init__(self, env):$/;"	m	class:Recorder
 __len__	agent/ddpg.py	/^    def __len__(self):$/;"	m	class:Buffer
 _act	env/neur_env.py	/^    def _act(self, action):$/;"	m	class:Neuron_env
@@ -43,7 +43,6 @@ adj_w_ext_to_K	env/helpers.py	/^def adj_w_ext_to_K(K_full, K_scaling, w, w_from_
 agent	main.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
 agent	retrain.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
 agent	test.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
-autograd	agent/ddpg.py	/^import torch.autograd as autograd$/;"	I
 batch_size	main.py	/^batch_size = 64$/;"	v
 batch_size	retrain.py	/^batch_size = 248$/;"	v
 boxplot	env/helpers.py	/^def boxplot(net_dict, path):$/;"	f
@@ -117,8 +116,6 @@ np	env/network.py	/^import numpy as np$/;"	I
 np	env/network_params.py	/^import numpy as np$/;"	I
 np	env/neur_env.py	/^import numpy as np$/;"	I
 np	env/stimulus_params.py	/^import numpy as np$/;"	I
-np	main.py	/^import numpy as np$/;"	I
-np	retrain.py	/^import numpy as np$/;"	I
 np	utils/utils.py	/^import numpy as np$/;"	I
 optim	agent/ddpg.py	/^import torch.optim as optim$/;"	I
 pd	utils/utils.py	/^import pandas as pd$/;"	I
