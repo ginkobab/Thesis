@@ -1,4 +1,3 @@
-import numpy as np
 from nest import set_verbosity
 
 from agent.ddpg import DDPGAgent
@@ -12,8 +11,6 @@ set_verbosity(30)
 
 episodes = 50000
 batch_size = 248
-
-
 
 buffer_maxlen = 100000
 critic_lr = 1e-3
@@ -37,9 +34,5 @@ for i in range(10):
     print(next_state)
 
 
-take_checkpoint(agent, recorder, episode)
+take_checkpoint(agent, recorder, start)
 print('done')
-
-
-
-

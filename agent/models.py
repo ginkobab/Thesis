@@ -78,7 +78,7 @@ class Actor(nn.Module):
             fan_in_uniform_init(i.bias)
         nn.init.uniform_(self.linear3.weight, -3e-3, 3e-3)
         nn.init.uniform_(self.linear3.bias, -3e-4, 3e-4)
-        
+
 
 def fan_in_uniform_init(tensor, fan_in=None):
     """Utility function for initializing actor and critic"""
@@ -87,4 +87,3 @@ def fan_in_uniform_init(tensor, fan_in=None):
 
     w = 1. / np.sqrt(fan_in)
     nn.init.uniform_(tensor, -w, w)
-

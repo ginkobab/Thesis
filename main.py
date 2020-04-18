@@ -1,8 +1,5 @@
-import os
 import sys
-import numpy as np
 from nest import set_verbosity
-
 from agent.ddpg import DDPGAgent
 from env.neur_env import Neuron_env
 from utils.utils import Recorder
@@ -16,10 +13,9 @@ if len(sys.argv) > 1:
 
 set_verbosity(30)
 
+
 episodes = 50000
 batch_size = 64
-
-
 
 buffer_maxlen = 50000
 critic_lr = 1e-3
@@ -35,13 +31,17 @@ for episode in range(start, episodes + start):
     state = env.reset()
     action = agent.get_action(state)
     reward, next_state = env.step(action)
-    
+
     agent.replay_buffer.push(state, action, reward)
     q_loss, policy_loss = agent.update(batch_size)
 
-    recorder.push(episode, float(reward), *next_state, q_loss, policy_loss, *action, agent.test)
-
-    print('Episode ' + str(episode), end='\r')
+    recorder.push(episode,
+                  float(reward),
+                  *next_state,
+                  q_loss,
+                  policy_loss,
+                  *action,
+                  agent.test)
 
     if episode % 195 == 0:
         agent.test = True
@@ -53,3 +53,4 @@ for episode in range(start, episodes + start):
             agent.test = False
             take_checkpoint(agent, recorder, episode)
 
+    print('Episode ' + str(episode), end='\r')

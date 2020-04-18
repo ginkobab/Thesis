@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import sys
 if 'DISPLAY' not in os.environ:
     import matplotlib
     matplotlib.use('Agg')

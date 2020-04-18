@@ -1,7 +1,7 @@
 from agent.ddpg import DDPGAgent
 from env.neur_env import Neuron_env
 from utils.utils import Recorder
-from utils.utils import take_checkpoint, load_checkpoint
+from utils.utils import load_checkpoint
 
 fixed = ['neuron', 'synapse']
 
