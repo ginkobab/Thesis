@@ -1,0 +1,165 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/0b2607d3/
+Actor	agent/models.py	/^class Actor(nn.Module):$/;"	c
+Buffer	agent/ddpg.py	/^class Buffer(object):$/;"	c
+Critic	agent/models.py	/^class Critic(nn.Module):$/;"	c
+DDPGAgent	agent/ddpg.py	/^class DDPGAgent:$/;"	c
+F	agent/ddpg.py	/^import torch.nn.functional as F$/;"	I
+F	agent/models.py	/^import torch.nn.functional as F$/;"	I
+Net_dict	env/network_params.py	/^class Net_dict:$/;"	c
+Network	env/network.py	/^class Network:$/;"	c
+Neuron_env	env/neur_env.py	/^class Neuron_env(object):$/;"	c
+Recorder	utils/utils.py	/^class Recorder:$/;"	c
+Space	env/helpers.py	/^class Space(object):$/;"	c
+Transition	agent/ddpg.py	/^Transition = namedtuple('Transition',$/;"	v
+__init__	agent/ddpg.py	/^    def __init__(self, capacity):$/;"	m	class:Buffer
+__init__	agent/ddpg.py	/^    def __init__(self, env, buffer_maxlen,$/;"	m	class:DDPGAgent
+__init__	agent/models.py	/^    def __init__(self, state_size, action_size):$/;"	m	class:Critic
+__init__	agent/models.py	/^    def __init__(self, state_size, action_size, action_range=None):$/;"	m	class:Actor
+__init__	env/helpers.py	/^    def __init__(self, shape):$/;"	m	class:Space
+__init__	env/network.py	/^    def __init__(self, sim_dict, net_dict, stim_dict=None):$/;"	m	class:Network
+__init__	env/network_params.py	/^    def __init__(self, fixed=[]):$/;"	m	class:Net_dict
+__init__	env/neur_env.py	/^    def __init__(self, fixed=[], plot=False):$/;"	m	class:Neuron_env
+__init__	utils/utils.py	/^    def __init__(self, env):$/;"	m	class:Recorder
+__len__	agent/ddpg.py	/^    def __len__(self):$/;"	m	class:Buffer
+_act	env/neur_env.py	/^    def _act(self, action):$/;"	m	class:Neuron_env
+_get_reward	env/neur_env.py	/^    def _get_reward(self, next_state):$/;"	m	class:Neuron_env
+_simulate	env/neur_env.py	/^    def _simulate(self):$/;"	m	class:Neuron_env
+_try_simulation	env/neur_env.py	/^    def _try_simulation(self):$/;"	m	class:Neuron_env
+action	main.py	/^    action = agent.get_action(state)$/;"	v
+action	retrain.py	/^    action = agent.get_action(state)$/;"	v
+action	test.py	/^action = agent.get_action(state)$/;"	v
+actor_lr	main.py	/^actor_lr = 1e-4$/;"	v
+actor_lr	retrain.py	/^actor_lr = 1e-4$/;"	v
+actor_lr	test.py	/^actor_lr = 1e-4$/;"	v
+adj_w_ext_to_K	env/helpers.py	/^def adj_w_ext_to_K(K_full, K_scaling, w, w_from_PSP, DC, net_dict, stim_dict):$/;"	f
+agent	main.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
+agent	retrain.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
+agent	test.py	/^agent = DDPGAgent(env, buffer_maxlen, critic_lr, actor_lr)$/;"	v
+batch_size	main.py	/^batch_size = 64$/;"	v
+batch_size	retrain.py	/^batch_size = 248$/;"	v
+boxplot	env/helpers.py	/^def boxplot(net_dict, path):$/;"	f
+buffer_maxlen	main.py	/^buffer_maxlen = 50000$/;"	v
+buffer_maxlen	retrain.py	/^buffer_maxlen = 100000$/;"	v
+buffer_maxlen	test.py	/^buffer_maxlen = 100000$/;"	v
+build_flat	env/network_params.py	/^    def build_flat(self, parameters, resetting=False):$/;"	m	class:Net_dict
+build_nested	env/network_params.py	/^    def build_nested(self):$/;"	m	class:Net_dict
+compute_DC	env/helpers.py	/^def compute_DC(net_dict, w_ext):$/;"	f
+connect_dc_generator	env/network.py	/^    def connect_dc_generator(self):$/;"	m	class:Network
+connect_devices	env/network.py	/^    def connect_devices(self):$/;"	m	class:Network
+connect_poisson	env/network.py	/^    def connect_poisson(self):$/;"	m	class:Network
+connect_thalamus	env/network.py	/^    def connect_thalamus(self):$/;"	m	class:Network
+copy_connection_params	env/network_params.py	/^    def copy_connection_params(self):$/;"	m	class:Net_dict
+copy_neuron_params	env/network_params.py	/^    def copy_neuron_params(self):$/;"	m	class:Net_dict
+copy_synapse_params	env/network_params.py	/^    def copy_synapse_params(self):$/;"	m	class:Net_dict
+create_connections	env/network.py	/^    def create_connections(self):$/;"	m	class:Network
+create_dc_generator	env/network.py	/^    def create_dc_generator(self):$/;"	m	class:Network
+create_devices	env/network.py	/^    def create_devices(self):$/;"	m	class:Network
+create_poisson	env/network.py	/^    def create_poisson(self):$/;"	m	class:Network
+create_populations	env/network.py	/^    def create_populations(self):$/;"	m	class:Network
+create_thalamic_input	env/network.py	/^    def create_thalamic_input(self):$/;"	m	class:Network
+critic_lr	main.py	/^critic_lr = 1e-3$/;"	v
+critic_lr	retrain.py	/^critic_lr = 1e-3$/;"	v
+critic_lr	test.py	/^critic_lr = 1e-3$/;"	v
+env	main.py	/^env = Neuron_env(fixed)$/;"	v
+env	retrain.py	/^env = Neuron_env(fixed)$/;"	v
+env	test.py	/^env = Neuron_env(fixed, plot=True)$/;"	v
+episodes	main.py	/^episodes = 50000$/;"	v
+episodes	retrain.py	/^episodes = 50000$/;"	v
+evaluate	env/network.py	/^    def evaluate(self, raster_plot_time_idx, fire_rate_time_idx, plot=False):$/;"	m	class:Network
+export	utils/utils.py	/^    def export(self):$/;"	m	class:Recorder
+fan_in_uniform_init	agent/models.py	/^def fan_in_uniform_init(tensor, fan_in=None):$/;"	f
+fire_rate	env/helpers.py	/^def fire_rate(path, name, begin, end):$/;"	f
+fixed	main.py	/^    fixed = []$/;"	v
+fixed	main.py	/^fixed = ['neuron', 'synapse']$/;"	v
+fixed	retrain.py	/^fixed = ['neuron', 'structure']$/;"	v
+fixed	test.py	/^fixed = ['neuron', 'synapse']$/;"	v
+forward	agent/models.py	/^    def forward(self, state):$/;"	m	class:Actor
+forward	agent/models.py	/^    def forward(self, state, action):$/;"	m	class:Critic
+generate_mean_values	env/network_params.py	/^    def generate_mean_values(self):$/;"	m	class:Net_dict
+get_action	agent/ddpg.py	/^    def get_action(self, obs):$/;"	m	class:DDPGAgent
+get_action_list	utils/utils.py	/^def get_action_list(env):$/;"	f
+get_axis_index	utils/utils.py	/^def get_axis_index():$/;"	f
+get_dict	env/network_params.py	/^    def get_dict(self):$/;"	m	class:Net_dict
+get_initial_values	env/network_params.py	/^    def get_initial_values(self):$/;"	m	class:Net_dict
+get_mean_PSP_matrix	env/network_params.py	/^def get_mean_PSP_matrix(PSP_e, g, number_of_pop):$/;"	f
+get_mean_delays	env/network_params.py	/^def get_mean_delays(mean_delay_exc, mean_delay_inh, number_of_pop):$/;"	f
+get_std_PSP_matrix	env/network_params.py	/^def get_std_PSP_matrix(PSP_rel, number_of_pop):$/;"	f
+get_std_delays	env/network_params.py	/^def get_std_delays(std_delay_exc, std_delay_inh, number_of_pop):$/;"	f
+get_total_number_of_synapses	env/helpers.py	/^def get_total_number_of_synapses(net_dict):$/;"	f
+get_voltage_mean	env/network_params.py	/^    def get_voltage_mean(self):$/;"	m	class:Net_dict
+get_voltage_sd	env/network_params.py	/^    def get_voltage_sd(self):$/;"	m	class:Net_dict
+get_weight	env/helpers.py	/^def get_weight(PSP_val, net_dict):$/;"	f
+init_layers	agent/models.py	/^    def init_layers(self):$/;"	m	class:Actor
+init_layers	agent/models.py	/^    def init_layers(self):$/;"	m	class:Critic
+load_checkpoint	agent/ddpg.py	/^    def load_checkpoint(self, checkpoint_path):$/;"	m	class:DDPGAgent
+load_checkpoint	utils/utils.py	/^def load_checkpoint(agent, recorder):$/;"	f
+load_df	utils/utils.py	/^    def load_df(self):$/;"	m	class:Recorder
+load_parameters	env/network_params.py	/^    def load_parameters(self):$/;"	m	class:Net_dict
+load_spike_times	env/helpers.py	/^def load_spike_times(path, name, begin, end):$/;"	f
+network	env/example.py	/^import env.network as network$/;"	I
+next_state	main.py	/^    reward, next_state = env.step(action)$/;"	v
+next_state	retrain.py	/^    reward, next_state = env.step(action)$/;"	v
+next_state	test.py	/^reward, next_state = env.step(action)$/;"	v
+nn	agent/models.py	/^import torch.nn as nn$/;"	I
+np	agent/models.py	/^import numpy as np$/;"	I
+np	env/example.py	/^import numpy as np$/;"	I
+np	env/helpers.py	/^import numpy as np$/;"	I
+np	env/network.py	/^import numpy as np$/;"	I
+np	env/network_params.py	/^import numpy as np$/;"	I
+np	env/neur_env.py	/^import numpy as np$/;"	I
+np	env/stimulus_params.py	/^import numpy as np$/;"	I
+np	utils/utils.py	/^import numpy as np$/;"	I
+optim	agent/ddpg.py	/^import torch.optim as optim$/;"	I
+pd	utils/utils.py	/^import pandas as pd$/;"	I
+plot_raster	env/helpers.py	/^def plot_raster(path, name, begin, end):$/;"	f
+plt	env/helpers.py	/^import matplotlib.pyplot as plt$/;"	I
+plt	utils/utils.py	/^import matplotlib.pyplot as plt$/;"	I
+policy_loss	main.py	/^    q_loss, policy_loss = agent.update(batch_size)$/;"	v
+push	agent/ddpg.py	/^    def push(self, *args):$/;"	m	class:Buffer
+push	utils/utils.py	/^    def push(self, *values):$/;"	m	class:Recorder
+q_loss	main.py	/^    q_loss, policy_loss = agent.update(batch_size)$/;"	v
+read_name	env/helpers.py	/^def read_name(path, name):$/;"	f
+recorder	main.py	/^recorder = Recorder(env)$/;"	v
+recorder	retrain.py	/^recorder = Recorder(env)$/;"	v
+recorder	test.py	/^recorder = Recorder(env)$/;"	v
+reset	env/network_params.py	/^    def reset(self):$/;"	m	class:Net_dict
+reset	env/neur_env.py	/^    def reset(self):$/;"	m	class:Neuron_env
+reward	main.py	/^    reward, next_state = env.step(action)$/;"	v
+reward	retrain.py	/^    reward, next_state = env.step(action)$/;"	v
+reward	test.py	/^reward, next_state = env.step(action)$/;"	v
+run_simulation	env/example.py	/^def run_simulation(net_dict, plot=False):$/;"	f
+sample	agent/ddpg.py	/^    def sample(self, batch_size):$/;"	m	class:Buffer
+save_checkpoint	agent/ddpg.py	/^    def save_checkpoint(self, last_timestep):$/;"	m	class:DDPGAgent
+save_plot	utils/utils.py	/^    def save_plot(self):$/;"	m	class:Recorder
+set_connection_matrix	env/network_params.py	/^    def set_connection_matrix(self, params):$/;"	m	class:Net_dict
+set_neuron_params	env/network_params.py	/^    def set_neuron_params(self, params):$/;"	m	class:Net_dict
+set_sd_mean	env/network_params.py	/^    def set_sd_mean(self, params):$/;"	m	class:Net_dict
+set_synapse_params	env/network_params.py	/^    def set_synapse_params(self, params):$/;"	m	class:Net_dict
+set_values	env/network_params.py	/^    def set_values(self, params):$/;"	m	class:Net_dict
+set_voltage_mean	env/network_params.py	/^    def set_voltage_mean(self, params):$/;"	m	class:Net_dict
+setup	env/network.py	/^    def setup(self):$/;"	m	class:Network
+setup_nest	env/network.py	/^    def setup_nest(self):$/;"	m	class:Network
+sim_dict	env/sim_params.py	/^sim_dict = {$/;"	v
+simulate	env/network.py	/^    def simulate(self):$/;"	m	class:Network
+sns	utils/utils.py	/^import seaborn as sns$/;"	I
+start	main.py	/^start = load_checkpoint(agent, recorder)$/;"	v
+start	retrain.py	/^start = load_checkpoint(agent, recorder)$/;"	v
+start	test.py	/^start = load_checkpoint(agent, recorder)$/;"	v
+state	main.py	/^    state = env.reset()$/;"	v
+state	retrain.py	/^    state = env.reset()$/;"	v
+state	test.py	/^state = env.reset()$/;"	v
+step	env/neur_env.py	/^    def step(self, action):$/;"	m	class:Neuron_env
+stim_dict	env/stimulus_params.py	/^stim_dict = {$/;"	v
+synapses_th_matrix	env/helpers.py	/^def synapses_th_matrix(net_dict, stim_dict):$/;"	f
+take_checkpoint	utils/utils.py	/^def take_checkpoint(agent, recorder, episode):$/;"	f
+test_episode	main.py	/^        test_episode = 0$/;"	v
+update	agent/ddpg.py	/^    def update(self, batch_size):$/;"	m	class:DDPGAgent
+update_with_mean_values	env/network_params.py	/^    def update_with_mean_values(self):$/;"	m	class:Net_dict
