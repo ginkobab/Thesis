@@ -1,0 +1,42 @@
+\section{Conclusions}
+
+The objective of this research is not to discover better parameters for the Potjans and Diesmann model, yet it was intended as an example aimed to prove the potential of the application of Deep Reinforcement Learning on brain simulations.
+
+In this particular case, the target for the agent was to match the firing rates of the excitatory populations in the different layers, and it is highly promising not only the accuracy with which the values matched, but also the fact that the inhibitory firing rates were adjusted properly, maintaining the biological plausibility.
+
+In the future, this kind of approach could be applied to both conduct and endorse the research of biological parameters of the brain, such as population numerosity, connectivity, as in this case, but also to reverse-engineer the effects of diseases on specific areas of the brain.
+
+Obviously, this approach would be extremely useful in a whole-brain simulation, but since this is not feasible in a convenient way, it could help to make realistic approximations of it, shaping parameters in way that makes the simulation behave properly.
+
+\myparagraph{Improvement of the model} 
+A further improvement could be reached applying different layers of optimizations one after another, so that for example neuron's parameters are optimized first, then synapses' and lastly structure's. To do so without ``over-shooting'', it would be possible to impose thresholds to the first sets of parameters.
+
+Another approach that would minimize the chance of finding non-realistic parameters could be to change the loss function of the actor, adding a constraint on the size of actions, so that larger actions produce a higher loss. With this device, the agent would be inclined to take the lowest possible actions that achieve to get the higher rewards. The right balance between them could be obtained tweaking a constant that multiplies the constraint. 
+
+\myparagraph{Expanding the scope} 
+This kind of framework could obtain notable results modifying the setup so that there are different sets of target values, obtained in different situations, for example in resting state and while executing a task. This way the agent would learn to choose the parameters in a coherent way, so that the simulation will be more functionally realistic.
+
+\myparagraph{Deep Learning Integration} 
+The framework here provided hopes to be part of the process of connection between Deep Learning and Neuroscience research. The scientific community could greatly benefit this conjunction, and if there is a path that both the Artificial Intelligence and the Neuroscience current can walk together, then it should be done. 
+
+Our brain is able to solve the problem of general intelligence in a way that no algorithm can even dream at this time. This problem arises from the \emph{No Free Lunch Theorem} \cite{wolpert1997no}, that states that every algorithm has the same expected performance over all tasks. 
+
+This is mathematically proven, and what it means is that it doesn't exist a ``better algorithm'' in itself, but only a more fit one. Now, despite the Artificial Intelligence research has always aimed to build a ``general intelligence``, it never intended to build an intelligence better at \emph{every} task: that would mean to be able to solve problems that never arises in our physical world, or dynamics that cannot exist on the Earth, so that would be pointless. Nonetheless, the No Free Lunch Theorem clarified that the research effort shouldn't focus blindly on building something more powerful, like a huge calculator that can solve any computation in a matter of nanoseconds, but it should aim to intentionally excluding some kind of problems from the reach of the algorithm, including only the meaningful tasks.
+
+This is elaborated also in recent works, \cite{richards2019deep}, where the authors refer to this selection as an ``inductive bias''. For example, a Deep Neural Network has a bias on hierarchically shaped problems, because of the way the computations are carried on in its layers. This is yielding great results in the set of tasks that humans and animals are good at because our world is often shaped hierarchically: for example our language is structured in texts, composed with sentences, built with words that many times has prefixes or suffixes that bear their own meaning.
+
+The brain is very good at it, in fact Deep Neural Networks are derived from its structure and the way it works. This promises that understanding other mechanisms too, like how to adjust the trajectory of a movement, or coping with partial information, would help obtain excellent results if applied through artificial algorithms. 
+
+
+\myparagraph{Controversies - Why do we need an Artificial General Intelligence} 
+All the effort in the direction of building a ``super intelligence'' looks natural: it could lead to the automation of nearly every boring process humanity needs, and it would be error-free and more efficient at the same time. It could help the world to deal with the huge issues we are facing, like global warming, poverty and inequality. 
+
+This looks all very promising, but it is only speculation: reality is that we don't know what would really happen if a super-human intelligence will be created. It is theoretically simply unimaginable for human beings, but maybe there is a profound reason that drives researchers and funders to undertake this grand effort: the need for guidance.
+
+For as long as the humanity existed, people always looked for a leader, able to offer them safety in many areas such as physical, moral and economical security. This has been translated in the political structure of the monarchy and in religious institutions, but has returned too many disappointments: there are few people able to cover a position of power without taking advantage of it, and the last century has shown us that the leaders that make the most success are often the worst.  An impartial, superior intelligence with no concept of personal interest would solve this problem.
+
+Still, those are all conjectures, and all it is known is that this stream of research is incredibile fruitful, and even if we don't know yet if the fruits will be pleasant or not, the promises are so appetizing that the question is not if, but when they will be achieved. 
+
+
+
+

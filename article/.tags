@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/0b2607d3/
+Abstract	abstract.tex	/^\\section{Abstract}$/;"	s
+Appendix	appendix.tex	/^\\section{Appendix}$/;"	s
+Changing all parameters	results.tex	/^\\subsection{Changing all parameters} $/;"	u	section:Results
+Changing neuron parameters	results.tex	/^\\subsection{Changing neuron parameters} $/;"	u	section:Results
+Changing structure parameters	results.tex	/^\\subsection{Changing structure parameters} $/;"	u	section:Results
+Changing synapses parameters	results.tex	/^\\subsection{Changing synapses parameters} $/;"	u	section:Results
+Conclusions	conclusions.tex	/^\\section{Conclusions}$/;"	s
+DDPG model	appendix.tex	/^\\subsection{DDPG model} $/;"	u	section:Appendix
+Environment Model	appendix.tex	/^\\subsection{Environment Model} $/;"	u	section:Appendix
+Material and Methods	materials.tex	/^\\section{Material and Methods}$/;"	s
+Neurons parameters	appendix.tex	/^\\paragraph{Neurons parameters}  $/;"	P	subsection:Appendix""Environment Model
+Reinforcement Learning	introduction.tex	/^\\subsection{Reinforcement Learning} $/;"	u	section:Theoretical Introduction
+Results	results.tex	/^\\section{Results}$/;"	s
+Synapses parameters	appendix.tex	/^\\paragraph{Synapses parameters}$/;"	P	subsection:Appendix""Environment Model
+The agent	materials.tex	/^\\subsection{The agent}$/;"	u	section:Material and Methods
+The environment	materials.tex	/^\\subsection{The environment}$/;"	u	section:Material and Methods
+The methodology	materials.tex	/^\\subsection{The methodology} $/;"	u	section:Material and Methods
+The objective	materials.tex	/^\\subsection{The objective} $/;"	u	section:Material and Methods
+The simulation model	introduction.tex	/^\\subsection{The simulation model} $/;"	u	section:Theoretical Introduction
+The whole model in detail	materials.tex	/^\\subsection{The whole model in detail}$/;"	u	section:Material and Methods
+Theoretical Introduction	introduction.tex	/^\\section{Theoretical Introduction}$/;"	s
+\\myparagraph	main.tex	/^\\newcommand{\\myparagraph}[1]{\\paragraph{#1}\\mbox{}\\\\}$/;"	C
+alphafold	references.bib	/^@article{alphafold,$/;"	a
+appendix_a	appendix.tex	/^\\label{appendix_a}$/;"	l
+appendix_b	appendix.tex	/^\\label{appendix_b}$/;"	l
+bernander	references.bib	/^@article{bernander,$/;"	a
+bluegene	references.bib	/^@ARTICLE{bluegene,  author={M. {Djurfeldt} and M. {Lundqvist} and C. {Johansson} and M. {Rehn} a/;"	a
+brunel	references.bib	/^@article{brunel,$/;"	a
+burkitt	references.bib	/^@article{burkitt,$/;"	a
+dayan	references.bib	/^@book{dayan,$/;"	b
+fig:potjans_barplot	introduction.tex	/^	\\label{fig:potjans_barplot}$/;"	l
+fig:rl	introduction.tex	/^	\\label{fig:rl}$/;"	l
+fig:structure	results.tex	/^	\\label{fig:structure}$/;"	l
+kock	references.bib	/^@article{kock,$/;"	a
+lillicrap	references.bib	/^@article{lillicrap,$/;"	a
+linden2011modeling	references.bib	/^@article{linden2011modeling,$/;"	a
+neuralink	references.bib	/^@article {neuralink,$/;"	a
+pellonisz	references.bib	/^@article{pellonisz,$/;"	a
+potjans	references.bib	/^@article{potjans,$/;"	a
+pytorch	references.bib	/^@article{pytorch,$/;"	a
+shimoura2018reimplementation	references.bib	/^@article{shimoura2018reimplementation,$/;"	a
+smolensky	references.bib	/^@article{smolensky,$/;"	a
+thomson2003interlaminar	references.bib	/^@article{thomson2003interlaminar,$/;"	a
+wagatsuma2011layer	references.bib	/^@article{wagatsuma2011layer,$/;"	a

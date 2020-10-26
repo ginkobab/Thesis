@@ -1,0 +1,37 @@
+\section{Appendix}
+
+\subsection{Environment Model} 
+\label{appendix_a}
+The code from NEST was modified to make possible for the agent to act on it. To do so, the network's parameters were divided in 3 groups: neuron, synapses and structure parameters.
+\paragraph{Synapses parameters}
+\begin{itemize}[noitemsep]
+	\item Mean amplitude and standard deviation of excitatory postsynaptic potential
+	\item Relative inhibitory synaptic strength 
+	\item Mean delay of excitatory and inhibitory connections
+	\item Relative standard deviation of the delay of excitatory and inhibitory connections
+\end{itemize}
+\paragraph{Neurons parameters}  
+\begin{itemize}[noitemsep]
+	\item Membrane potential average and standard deviation for every population and layer
+	\item Reset membrane potential
+	\item Membrane potential after a spike
+	\item Membrane capacitance
+	\item Membrane time constant
+	\item Time constant of postsynaptic excitatory and inhibitory currents
+	\item Time constant of external postsynaptic excitatory current
+	\item Refractory period after a spike
+\end{itemize}
+\myparagraph{Structure parameters}  
+The connections probabilities between the layers and the populations are defined in an 8x8 matrix, and the agent could modify every value, resulting in an action vector of 64 values.
+The total number of neurons wasn't changed.
+
+
+
+
+\subsection{DDPG model} 
+\label{appendix_b}
+The DDPG model is programmed with PyTorch \cite{pytorch} following the suggestions of the original paper \cite{lillicrap}, so the neural networks are consisting of input size equals to 1, because there was no need to feed any state to the model, so the input was equal to one. The critic model had a secondary input, the action values, in the first hidden layer. Both models had 2 hidden layer including respectively 300 and 200 nodes, with a Rectified Linear Unit as activation function. The output layer of the critic network was linear and of size one, while the output layer of the actor was a Hyperbolic Tangent and had the same size of the action vector.
+
+The learning rates were $10^{-3}$ and $10^{-4}$ for respectively the critic and the actor network, and the batch size was 64. The noise was just a vector of the same length of the action vector, with random values drawn from a Gaussian distribution. The noise was subjected to a multiplicative decay factor of 0.9999. 
+
+

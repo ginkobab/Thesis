@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{article}
+\usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[T1]{fontenc}
@@ -6,6 +7,8 @@
 \usepackage{setspace}
 \usepackage[paper=a4paper,margin=1in]{geometry}
 \usepackage{apacite}
+\usepackage{xr}
+\externaldocument{appendix}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \onehalfspacing
@@ -14,12 +17,12 @@
 
 \include{cover}
 \tableofcontents
-\include{abstract}
 
 \pagestyle{plain}
 \include{introduction}
 \include{materials}
 \include{results}
+\include{conclusions}
 \appendix
 \include{appendix}
 \bibliographystyle{apacite}
