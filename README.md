@@ -7,13 +7,14 @@ The results show that Reinforcement Learning obtains results that exceed in accu
 
 # Results
 
-The DDPG algorithm took around 20000 iterations to stabilize and find the optimal weights
 
-![scatterplot](https://github.com/stebett/thesis/blob/master/article/pictures/structure_scatterplot.pdf)
+The agent was able to set the parameters of the model to achieve exactly the firing rates requested.
 
-The agent was able to set the parameters of the model to achieve exactly the firing rates requested
+![comparison](https://github.com/stebett/thesis/blob/master/article/pictures/svgs/potjans_barplot1.svg)
 
-![comparison](https://github.com/stebett/thesis/blob/master/article/pictures/potjans_barplot.pdf)
+The DDPG algorithm took around 20000 iterations to stabilize and find the optimal weights.
+
+![scatterplot](https://github.com/stebett/thesis/blob/master/article/pictures/svgs/structure_plot.svg)
 
 
 # Structure
