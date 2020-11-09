@@ -5,6 +5,17 @@ Still, building simulations of sections of the brain is complex, and finding the
 Here it is developed a simple framework to automate the search for the best parameters for the simulation, and is provided a use case with a model of a hypercolumn and a Reinforcement Learning algorithm to optimize the parameters so that the firing rate of the excitatory populations in every layer matches the activity recorded in vivo.
 The results show that Reinforcement Learning obtains results that exceed in accuracy the referenced papers.
 
+# Results
+
+The DDPG algorithm took around 20000 iterations to stabilize and find the optimal weights
+
+![scatterplot](https://github.com/stebett/thesis/blob/master/article/pictures/structure_scatterplot.pdf)
+
+The agent was able to set the parameters of the model to achieve exactly the firing rates requested
+
+![comparison](https://github.com/stebett/thesis/blob/master/article/pictures/potjans_barplot.pdf)
+
+
 # Structure
 
 - The agent directory contains the code for Deep Deterministic Policy Gradient algorithm, adapted for a multi-armed bandit setup
