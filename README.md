@@ -18,6 +18,6 @@ The DDPG algorithm took around 20000 iterations to stabilize and find the optima
 
 
 # Structure
-
-- The agent directory contains the code for Deep Deterministic Policy Gradient algorithm, adapted for a multi-armed bandit setup
+- [Here](https://github.com/stebett/thesis/blob/master/article/main.pdf) you can find the thesis.
+- The agent directory contains the code for Deep Deterministic Policy Gradient algorithm, adapted for a multi-armed bandit setup.
 - The env directory contains the code for the brain simulation, supplied by NEST in their source code, developed following the Potjans and Diesmann (2014) work.
